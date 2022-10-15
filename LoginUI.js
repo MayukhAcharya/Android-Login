@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useContext } from "react";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -9,40 +9,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { user_login } from "./user_api";
+import { Authcontext } from "./api/Authcontext";
 
 export default function LoginUI({ navigation }) {
-  const [email, setEmail] = React.useState("null");
-  const [pass, Setpass] = React.useState("null");
-
-  const validPass = (value) => {
-    const isNonWhiteSpace = /^\S*$/;
-    if (!isNonWhiteSpace.test(value)) {
-      return "Password must not contain Whitespaces.";
-    }
-    return null;
-  };
-
-  const handleLogin = () => {
-    const checkpass = validPass(pass);
-    if (!checkpass) {
-      user_login({
-        email: email,
-        password: pass,
-      })
-        .then((result) => {
-          if (result.status == 200) {
-            AsyncStorage.setItem("AccessToken", result.data.token);
-            navigation.replace("Home");
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else {
-      alert(checkpass);
-    }
-  };
+  const [email, setEmail] = React.useState("");
+  const [password, Setpass] = React.useState("");
+  const { isLoading, login } = useContext(Authcontext);
 
   return (
     <View style={styles.container}>
@@ -66,7 +38,12 @@ export default function LoginUI({ navigation }) {
           onChangeText={(value) => Setpass(value)}
         />
 
-        <TouchableOpacity style={styles.nextBtn} onPress={handleLogin}>
+        <TouchableOpacity
+          style={styles.nextBtn}
+          onPress={() => {
+            login(email, password);
+          }}
+        >
           <Text style={styles.nextBtntext}>Press here for Login</Text>
         </TouchableOpacity>
 
