@@ -24,6 +24,11 @@ export const AuthProvider = ({ children }) => {
         setUserInfo(userInfo);
         AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
         setISLoading(false);
+      })
+      .catch((res) => {
+        console.log("Login Error");
+        setISLoading(false);
+        alert("Wrong username or password");
       });
   };
 

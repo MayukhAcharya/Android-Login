@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useContext } from "react";
 import {
+  ActivityIndicator,
   Alert,
   KeyboardAvoidingView,
   StyleSheet,
@@ -9,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 import { Authcontext } from "./api/Authcontext";
 
 export default function LoginUI({ navigation }) {
@@ -18,6 +20,7 @@ export default function LoginUI({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Spinner color="red" visible={isLoading} />
       <KeyboardAvoidingView
         behavior={Platform.OS === "Andriod" ? "padding" : "height"}
         style={styles.container}
@@ -25,8 +28,8 @@ export default function LoginUI({ navigation }) {
         <Text>Login</Text>
         <TextInput
           style={styles.login}
-          placeholder="Email"
-          keyboardType="email-address"
+          placeholder="Username"
+          keyboardType="default"
           value={email}
           onChangeText={(value) => setEmail(value)}
         />
