@@ -20,15 +20,15 @@ export const AuthProvider = ({ children }) => {
       })
       .then((res) => {
         let userInfo = res.data;
-        console.log(userInfo);
+        console.log(res.data.message);
         setUserInfo(userInfo);
         AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
         setISLoading(false);
       })
-      .catch((res) => {
-        console.log("Login Error");
+      .catch(function (error) {
+        //console.log(error.response.data.errors);
         setISLoading(false);
-        alert("Wrong username or password");
+        alert(error.response.data.errors);
       });
   };
 
