@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import React, { createContext, useState } from "react";
-import { base_url } from "../config";
+import { API_URl } from "@env";
 
 export const Authcontext = createContext();
 
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     setISLoading(true);
 
     axios
-      .post(`${base_url}/login/`, {
+      .post(`${API_URl}/login/`, {
         username,
         password,
         grant_type,
