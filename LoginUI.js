@@ -6,11 +6,11 @@ import {
   KeyboardAvoidingView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Dimensions,
 } from "react-native";
+import { TextInput } from "react-native-paper";
 import Spinner from "react-native-loading-spinner-overlay";
 import { Authcontext } from "./api/Authcontext";
 const { height, width } = Dimensions.get("window");
@@ -29,18 +29,32 @@ export default function LoginUI({ navigation }) {
         style={styles.container}
       >
         <Text style={styles.usernametext}>Please Enter you Username</Text>
+
         <TextInput
+          mode="outlined"
+          theme={{ roundness: 14 }}
           style={styles.login}
-          placeholder="Username"
+          label="Username"
           keyboardType="default"
           value={email}
           onChangeText={(value) => setEmail(value)}
         />
+
         <TextInput
+          mode="outlined"
+          theme={{ roundness: 14 }}
+          //outlineColor="white"
           style={styles.login}
-          placeholder="Password"
+          label="Password"
           secureTextEntry={isSecureEntry}
           onChangeText={(value) => Setpass(value)}
+          right={
+            <TextInput.Icon
+              //icon="eye"
+              icon={isSecureEntry ? "eye" : "eye-off"}
+              onPress={() => isSetSecureEntry(!isSecureEntry)}
+            />
+          }
         />
 
         {email == "" || password == "" ? (
@@ -74,6 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "white",
   },
   usernametext: {
     top: -50,
@@ -83,14 +98,14 @@ const styles = StyleSheet.create({
     fontSize: 26,
   },
   login: {
-    borderWidth: 1,
+    //borderWidth: 1,
     borderColor: "#777",
-    padding: 8,
-    margin: 10,
-    width: 310,
-    height: 50,
-    borderRadius: 12,
-    backgroundColor: "#D3D3D3",
+    //padding: 2,
+    margin: 14,
+    width: width / 1.2,
+    height: 60,
+    //elevation: 5,
+    //backgroundColor: "#D3D3D3",
     top: 20,
   },
   nextBtn: {
@@ -125,6 +140,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: width / 1.1,
     color: "grey",
+    top: -20,
   },
   underlineText: {
     textDecorationLine: "underline",
