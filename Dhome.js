@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { Snackbar } from "react-native-paper";
 import { Authcontext } from "./api/Authcontext";
 //import Snackbar from "react-native-snackbar";
-export default function Home({ navigation }) {
+export default function Dhome({ navigation }) {
   const [visible, setVisible] = useState(true);
   const onDismissSnackBar = () => setVisible(false);
   const { logout, userInfo } = useContext(Authcontext);

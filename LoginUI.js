@@ -19,7 +19,7 @@ export default function LoginUI({ navigation }) {
   const [email, setEmail] = React.useState("");
   const [password, Setpass] = React.useState("");
   const [isSecureEntry, isSetSecureEntry] = useState(true);
-  const { isLoading, login } = useContext(Authcontext);
+  const { login, isLoading } = useContext(Authcontext);
 
   return (
     <View style={styles.container}>
@@ -57,25 +57,42 @@ export default function LoginUI({ navigation }) {
           }
         />
 
-        {email == "" || password == "" ? (
+        {/* {email == "" || password == "" ? (
           <TouchableOpacity style={styles.nextBtndisable} disabled={true}>
             <Text style={styles.nextBtntext}>Login</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             style={styles.nextBtn}
-            onPress={() => login(email, password)}
+            onPress={() => {
+              login();
+            }}
           >
             <Text style={styles.nextBtntext}>Login</Text>
           </TouchableOpacity>
-        )}
-
+        )} */}
+        <TouchableOpacity
+          style={styles.nextBtn}
+          onPress={() => {
+            login(email, password);
+          }}
+        >
+          <Text style={styles.nextBtntext}>Login</Text>
+        </TouchableOpacity>
+        <View style={styles.forgotpass}>
+          <Text
+            style={{ color: "red" }}
+            onPress={() => navigation.navigate("forgot")}
+          >
+            Forgot Password
+          </Text>
+        </View>
         <StatusBar style="auto" />
       </KeyboardAvoidingView>
       <Text style={styles.foottext}>
         By log in you agree with our{" "}
         <Text style={styles.underlineText}>Terms and Condition</Text>
-        <Text> and </Text>
+        <Text> and </Text>z
         <Text style={styles.underlineText}>Privacy policy</Text>
       </Text>
     </View>
@@ -145,5 +162,9 @@ const styles = StyleSheet.create({
   underlineText: {
     textDecorationLine: "underline",
     color: "red",
+  },
+  forgotpass: {
+    top: -50,
+    left: 80,
   },
 });
