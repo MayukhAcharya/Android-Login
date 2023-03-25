@@ -16,10 +16,18 @@ export const AuthProvider = ({ children }) => {
   const login = (mobile_number, password) => {
     SetIsLoading(true);
     axios
-      .post(`${API_URL}/login/`, {
-        mobile_number: "91" + mobile_number,
-        password: password,
-      })
+      .post(
+        `${API_URL}/login/`,
+        {
+          mobile_number: "91" + mobile_number,
+          password: password,
+        },
+        {
+          headers: {
+            Authorization: "No Auth",
+          },
+        }
+      )
       .then((res) => {
         //console.log(res.data);
         let userInfo = res.data;
@@ -30,8 +38,8 @@ export const AuthProvider = ({ children }) => {
         AsyncStorage.setItem("userToken", userInfo.token.access);
         SetIsLoading(false);
       })
-      .catch((e) => {
-        alert("Bhak sala");
+      .catch(function (error) {
+        console.log(error);
         SetIsLoading(false);
       });
     // setUserToken("iforubgkfjknjskvy");

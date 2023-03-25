@@ -19,7 +19,7 @@ export default function Navigation() {
       <Stack.Navigator initialRouteName="Login">
         {userToken !== null ? (
           <>
-            {userInfo.data.user_type === "1" ? (
+            {userInfo.data.user_type === "PR" ? (
               <Stack.Screen
                 name="Home"
                 component={Home}
